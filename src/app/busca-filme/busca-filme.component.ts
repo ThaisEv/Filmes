@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-busca-filme',
@@ -7,6 +7,17 @@ import { FormControl, FormBuilder } from '@angular/forms';
   styleUrl: './busca-filme.component.css'
 })
 export class BuscaFilmeComponent {
-  formBusca: For
+  formBusca: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this.formBusca = this.fb.group({
+      titulo: ['', [Validators.required, 
+                    Validators.minLength(2)]]
+    })
+  }
+
+  buscar() {
+    console.log(this.formBusca.value);
+  }
 
 }
