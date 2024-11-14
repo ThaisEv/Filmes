@@ -12,7 +12,7 @@ export class BuscaFilmeComponent {
   formBusca: FormGroup;
   filme: Filme | undefined;
 
-  constructor(private cs: FilmeService, private fb: FormBuilder) {
+  constructor(private fs: FilmeService, private fb: FormBuilder) {
     this.formBusca = this.fb.group({
       titulo: ['', [Validators.required, 
                     Validators.minLength(2)]]
@@ -21,7 +21,11 @@ export class BuscaFilmeComponent {
 
   buscar() {
     const titulo = this.formBusca.value.titulo;
-    this.filme = this.cs.buscarFilmePorTitulo(titulo);
+    this.fs.buscarFilmePorTitulo(titulo).subscribe(
+      res => {
+        this.filme = res;
+      }
+    );
     console.log(this.filme);
   }
 
